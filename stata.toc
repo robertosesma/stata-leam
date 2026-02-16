@@ -1,7 +1,7 @@
 v 3
-d User-written commands by the Laboratori d'Estadistica Aplicada (UAB)
+d User-written commands by the Laboratori d'Estadística Aplicada i Modelització (UAB)
 
-d This site provides user-written commands and other materials for use with Stata.
+d This repository provides user-written commands for use with Stata.
 
 p agree Agreement: Bland-Altman & Passing-Bablok methods
 p allsets All Possible Subsets: linear, logistic & Cox regression

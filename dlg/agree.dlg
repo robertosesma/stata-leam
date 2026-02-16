@@ -1,0 +1,115 @@
+/*
+  agree.dlg
+
+*! VERSION 1.2.4  15dec2022
+
+*/
+
+VERSION 12.0
+
+INCLUDE _std_msmall
+INCLUDE header
+HELP hlp1, view("help agree")
+RESET res1
+
+DEFINE _x _lft
+DEFINE _y _top
+DEFINE _cx 100
+DEFINE _rb_wd	350
+DEFINE _vinc	+220
+DEFINE _y_nst 	150
+DEFINE _gb_wd	370
+
+**# DIALOG main
+DIALOG main, label("agree - Passing-Bablok & Bland-Altman methods") tabtitle("Main")
+BEGIN
+    RADIO		rb_ba	_lft	_top    _rb_wd	., label("Bland-Altman comparison of two measurements methods") /*
+    */                                              onclickon(program sel_ba) first option(ba)
+    RADIO		rb_pb	_lft	_ss	    _rb_wd	., label("Passing-Bablok estimation of regression line") /*
+    */                                              onclickon(program sel_pb) last option(pb)
+
+	TEXT  		tx_y 	_lft	_ms		_vlx	., label("Y variable:") left
+	TEXT  		tx_x 	_vinc 	@   	_vlx	., label("X variable:") left
+	VARNAME		vary	_lft   	_ss		_vlx 	., label("Y variable")
+	VARNAME		varx	_vinc	@		_vlx 	., label("X variable")
+
+	TEXT  		tx_tit 	_lft	_xls	_vlx	., label("Title of graphics:") left
+	EDIT		ed_tit	_lft    _ss	 	_gb_wd	., option(title)
+	
+	TEXT		gb_nst	_lft  	_ms		_rb_wd	., label("Name of the study / Subtitle of graphics:")
+	EDIT		ed_nst	_lft    _ss	 	_gb_wd	., option(nst)
+END
+
+INCLUDE byifin
+
+**# DIALOG opt
+DIALOG opt, tabtitle("Options")
+BEGIN
+	INCLUDE _sp_level
+
+	GROUPBOX	gb_pb	_lft  	_ls    _gb_wd	70, label("Bland-Altman method")
+    CHECKBOX	cb_pct	_ilft	_ss		_rb_wd	., label("Compute Percentage values and graphic") option(pct)
+	CHECKBOX	cb_reg	_ilft	_ss		_rb_wd	., label("Show regression line on Bland-Altman graphics") option(line)
+
+    GROUPBOX	gb_ba	_lft  	_xls    _gb_wd	90, label("Passing-Bablok method")
+    CHECKBOX	cb_ci	_ilft	_ss		_rb_wd	., label("Show confidence intervals on Passing-Bablok graphic") option(ci)
+	CHECKBOX	cb_list	_ilft	_ss	    _rb_wd	., label("List input data. Identifier:") onclickon(program enableid) /*
+    */                                              onclickoff(program disableid) option(list)
+	VARNAME 	vid		_iilft	_ss		_vlx	., label("Identifier") option(id)
+END
+**# PROGRAM sel_ba
+PROGRAM sel_ba
+BEGIN
+	call opt.cb_pct.enable
+    call opt.cb_reg.enable
+
+    call opt.cb_ci.disable
+    call opt.cb_list.disable
+    call opt.vid.disable
+END
+**# PROGRAM sel_pb
+PROGRAM sel_pb
+BEGIN
+    call opt.cb_pct.disable
+    call opt.cb_reg.disable
+
+    call opt.cb_ci.enable
+    call opt.cb_list.enable
+    call opt.vid.enable
+END
+**# PROGRAM disableid
+PROGRAM disableid
+BEGIN
+	call opt.vid.disable
+END
+**# PROGRAM enableid
+PROGRAM enableid
+BEGIN
+	call opt.vid.enable
+END
+
+
+**# PROGRAM command
+PROGRAM command
+BEGIN
+	INCLUDE _by_pr
+	put "agree "
+	require main.vary main.varx
+	put main.vary " " main.varx
+	INCLUDE _ifin_pr
+	beginoptions
+		option radio(main rb_ba rb_pb)
+
+        option opt.cb_pct
+        option opt.cb_reg
+
+        option opt.cb_ci
+		option opt.cb_list
+		optionarg opt.vid
+
+		INCLUDE _level_opt_pr
+
+		optionarg main.ed_tit
+		optionarg main.ed_nst
+	endoptions
+END
