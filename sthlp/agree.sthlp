@@ -58,23 +58,19 @@ critical values obtained from the {it:Kolmogorov-Smirnov} test: 1.94947 (alpha=0
 You can click {dialog agree:here} to pop up a {dialog agree:dialog} or type {inp: db agree}.
 
 {p 4 4}
-Execute {cmd: net from http://metodo.uab.cat/stata} for install.
-
-{p 4 4}
-It is important to keep the commands updated. Execute {cmd: adoupdate agree, update} to update the {bf:agree} command.{break}
-Execute {cmd: adoupdate, update} to update {bf:all} the user-written commands.
+Execute {cmd: net install agree, from("https://raw.githubusercontent.com/robertosesma/stata-leam/master/")} for install.
 
 {p 4 4}
 This command uses the {help tabstat}, {help summarize}, {help swilk}, {help sktest} and {help spearman} Stata commands.
 
 {p 4 4}
-If you find any bugs or want to suggest any improvements, please send an e-mail to: leam@uab.cat.
+If you find any bugs please send an e-mail to: leam@uab.cat.
 
 
 {marker examples}{...}
 {title:Examples}
 
-{p 4 4}{stata "use http://metodo.uab.cat/stata/agree_data.dta":. use http://metodo.uab.cat/stata/agree_data.dta}{p_end}
+{p 4 4}{stata "use agree_data":. use https://raw.githubusercontent.com/robertosesma/stata-leam/master/dta/agree_data.dta}{p_end}
 {p 4 4}{cmd:. agree Instrumental Manual}{p_end}
 {p 4 4}{cmd:. agree Instrumental Manual, ba pct line nst(Study name)}{p_end}
 {p 4 4}{cmd:. agree Instrumental Manual, pb ci list id(Especimen)}{p_end}
@@ -152,7 +148,7 @@ leam@uab.cat{break}
 {p 4 6 2}
 Dom{c e'}nech JM. Passing-Bablok & Bland-Altman methods: User-written command agree for Stata [computer program].{break}
 V1.2.4. Bellaterra: Universitat Aut{c o'g}noma de Barcelona; 2022.{break}
-Available executing from Stata: net from http://metodo.uab.cat/stata{p_end}
+Available executing from Stata: net install agree, from("https://raw.githubusercontent.com/robertosesma/stata-leam/master/"){p_end}
 
 
 {marker references}{...}
