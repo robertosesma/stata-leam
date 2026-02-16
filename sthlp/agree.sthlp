@@ -70,7 +70,7 @@ If you find any bugs please send an e-mail to: leam@uab.cat.
 {marker examples}{...}
 {title:Examples}
 
-{p 4 4}{stata use https://raw.githubusercontent.com/robertosesma/stata-leam/master/dta/agree_data.dta:. use agree_data}{p_end}
+{p 4 4}{stata "use https://raw.githubusercontent.com/robertosesma/stata-leam/master/dta/agree_data.dta":. use agree_data}{p_end}
 {p 4 4}{cmd:. agree Instrumental Manual}{p_end}
 {p 4 4}{cmd:. agree Instrumental Manual, ba pct line nst(Study name)}{p_end}
 {p 4 4}{cmd:. agree Instrumental Manual, pb ci list id(Especimen)}{p_end}
